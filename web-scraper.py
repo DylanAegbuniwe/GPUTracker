@@ -1,14 +1,15 @@
-#!/opt/homebrew/bin/python3
-
-# Author(s): Shaun Derstine
-# Last Edit: 
-# Description: 
+# Author(s): 	Shaun Derstine
+# Last Edit: 	2/10/2022 
+# Description: 	This program contains function(s) for retreiving the item name, price,
+#		and as-of date of a product listed on newegg
 
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen
 from sys import argv
-from datetime import datetime
+from datetime import date
 
+# Input:	url
+# Output: 	bs4 object
 def convert_url(url):
 	# urlopen makes a request to webpage at url
 	# result is an object which is saved as url_object
@@ -18,30 +19,37 @@ def convert_url(url):
 	html_doc = url_object.read()
 
 	# converts raw html to BeautifulSoup object 'soup'
-	soup = bs(html_doc, 'html.parser')
+	soup = bs(html_doc, "html.parser")
 
 	return soup
 # end convert_url()
 
-def main():
-	# url is saved as a string
-	url = argv[1]
-
+# Input:	url to product page
+# Output:	dictionary holding product details from given link
+# Format:	{ "item":"", "price":"", "date":"" }
+def get_product(url):
+	# convert url into bs4 object
 	soup = convert_url(url)
 
-	# li element that holds current price info
-	li_elem = soup.find("li", class_="price-current")
+	# PRODUCT TITLE
+	# product title is held in h1 element
+	item_name = soup.find("h1", class_="product-title").string
 
-	cur_price = ""
+	# CURRENT PRICE
+	# all current price data is held in li element
+	li_elem = soup.find("li", class_="price-current")
 
 	# starting from index 1 in the children of the li element,
 	# $, dollar amount, cent amount
+	cur_price = ""
 	for i in range(1, len(li_elem.contents)):
+		# concat each segment of current price to string
 		cur_price += li_elem.contents[i].string
 
-	print("Price as of %s: %s" % (datetime.now(), cur_price))
-	# store in dictionary { "Date":datetime.now(), "Price":cur_price }
-# end main() 
+	# CURRENT DATE
+	# yyyy-mm-dd
+	cur_date = date.today().isoformat()
 
-if __name__ == "__main__":
-	main()
+	# return as dictionary
+	return { "item":item_name, "price":cur_price, "date":cur_date }
+# end get_product()
