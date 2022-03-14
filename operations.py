@@ -1,16 +1,3 @@
-from bs4 import BeautifulSoup as soup
-from urllib.request import urlopen as request
-
-url = 'https://www.newegg.com/p/pl?d=graphics+cards&page=1'
-
-##grab the html from the page
-client = request(url)
-page_html = client.read()
-client.close()
-page_soup = soup(page_html, 'html.parser')
-cells = page_soup.find_all("div", attrs={"class": "item-cell"})
-
-
 def get_price(cell):
     try:
      whole_number = str(cell.find_all("li", attrs={"class": "price-current"})).split("<strong>")[1].split("</strong")[0]
