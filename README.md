@@ -4,12 +4,12 @@ Users connect to site and are greeted by a generic web page. From there, users c
 
 ## Structure
 ### Web Scraper
-	- Regularly gets prices from newegg.com
+	- Regularly gets prices from newegg.com.
 
 ### mySQL Database
-	- List of products user is tracking
-	- Prices of tracked products
-	- User login details
+	- List of products user is tracking.
+	- Prices of tracked products.
+	- User login details.
 
 ### WebUI
 	- Generic home page that user can log in to or create a new account
