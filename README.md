@@ -1,4 +1,4 @@
-# User-Interfaced Web Scraper
+# User-Interfaced Price Checker
 ## Functionality
 Users connect to site and are greeted by a generic web page. From there, users can create an account or log in to an existing account. Once a user has logged in, they will see a new web page. On this page, the user can enter products they would like to track the price of or view products they are already tracking. If a user adds a new product to track, that item will be permanently added to their profile until they manually delete it.
 
