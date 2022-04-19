@@ -1,5 +1,5 @@
 # Author(s): 	Shaun Derstine
-# Last Edit: 	2/10/2022 
+# Last Edit: 	4/19/2022 
 # Description: 	This program contains function(s) for retreiving the item name, price,
 #		and as-of date of a product listed on newegg
 
@@ -67,5 +67,8 @@ def get_best_selling_gpus():
 
 	# Get all GPUs listed on page into list
 	gpus = soup.find_all("a", class_="item-title")
-	print(gpus)
+
+	# Get product details for each GPU
+	for gpu in gpus:
+		print( get_product(gpu['href']) )
 # end get_best_selling_gpus()
