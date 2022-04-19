@@ -53,3 +53,19 @@ def get_product(url):
 	# return as dictionary
 	return { "item":item_name, "price":cur_price, "date":cur_date }
 # end get_product()
+
+# Input:	None
+# Output:	Dictionary containing product details for top 36 best selling GPUs on Newegg
+# Format:	{ "item":"", "price":"", "date":"" }
+def get_best_selling_gpus():
+	# Convert webpage listing best selling GPUs into bs object
+	link_to_best_selling_page = "https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709&Order=3"
+	soup = convert_url(link_to_best_selling_page)
+
+	# Make something to hold GPU details
+	# Dictionary, list, store directly in database??
+
+	# Get all GPUs listed on page into list
+	gpus = soup.find_all("a", class_="item-title")
+	print(gpus)
+# end get_best_selling_gpus()
