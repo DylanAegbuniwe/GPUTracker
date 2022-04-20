@@ -4,13 +4,13 @@ Users connect to site and are greeted by a generic web page. From there, users c
 
 ## Structure
 ### Web Scraper (Python)
-	- Regularly checks and upates prices gotten from newegg.com
+- Regularly checks and updates prices from newegg.com
 
-### mySQL Database
-	- List of products user is tracking.
-	- Prices of tracked products.
-	- User login details.
+### Database (mySQL)
+- List of products user is tracking
+- Prices of tracked products
+- User login details
 
 ### WebUI (Angular)
-	- Generic home page that user can log in to or create a new account
-	- User page where they can see their tracked products or track new ones
+- Generic home page that user can log in to or create a new account
+- User page where they can see their tracked products or track new ones
