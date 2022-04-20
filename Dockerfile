@@ -1,2 +1,6 @@
-FROM python:3.9-slim-buster
-CMD ["python", "--version"]
+FROM python:3.9
+WORKDIR /app
+RUN python -m pip install bs4
+COPY scraper.py .
+COPY demo_scraper.py .
+CMD ["python", "demo_scraper.py"]
