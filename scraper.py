@@ -67,17 +67,17 @@ def get_best_selling_gpus():
 
 	# Dictionary to hold product details
 	product_details = {
-		"item":[],
-		"price":[],
-		"date":[]
+		"items":[],
+		"prices":[],
+		"dates":[]
 	}
 
 	# Get product details for each GPU
 	for gpu in gpus:
 		details = get_product(gpu["href"])
-		product_details["item"].append(details["item"])
-		product_details["price"].append(details["price"])
-		product_details["date"].append(details["date"])
+		product_details["items"].append(details["item"])
+		product_details["prices"].append(details["price"])
+		product_details["dates"].append(details["date"])
 
 	return product_details
 # end get_best_selling_gpus()
