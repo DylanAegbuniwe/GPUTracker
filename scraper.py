@@ -32,11 +32,9 @@ def get_product(url):
 	soup = convert_url(url)
 
 	# PRODUCT TITLE
-	# product title is held in h1 element
 	item_name = soup.find("h1", class_="product-title").string
 
 	# CURRENT PRICE
-	# all current price data is held in li element
 	li_elem = soup.find("li", class_="price-current")
 
 	# starting from index 1 in the children of the li element,
@@ -46,8 +44,7 @@ def get_product(url):
 		# concat each segment of current price to string
 		cur_price += li_elem.contents[i].string
 
-	# CURRENT DATE
-	# yyyy-mm-dd
+	# CURRENT DATE (yyyy-mm-dd)
 	cur_date = date.today().isoformat()
 
 	# return as dictionary
@@ -56,7 +53,7 @@ def get_product(url):
 
 # Input:	None
 # Output:	Dictionary containing product details for top 36 best selling GPUs on Newegg
-# Format:	{ "item":"", "price":"", "date":"" }
+# Format:	{ "item":[""], "price":[""], "date":[""] }
 def get_best_selling_gpus():
 	# Convert webpage listing best selling GPUs into bs object
 	link_to_best_selling_page = "https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709&Order=3"
@@ -68,7 +65,19 @@ def get_best_selling_gpus():
 	# Get all GPUs listed on page into list
 	gpus = soup.find_all("a", class_="item-title")
 
+	# Dictionary to hold product details
+	product_details = {
+		"item":[],
+		"price":[],
+		"date":[]
+	}
+
 	# Get product details for each GPU
 	for gpu in gpus:
-		print( get_product(gpu['href']) )
+		details = get_product(gpu["href"])
+		product_details["item"].append(details["item"])
+		product_details["price"].append(details["price"])
+		product_details["date"].append(details["date"])
+
+	return product_details
 # end get_best_selling_gpus()
