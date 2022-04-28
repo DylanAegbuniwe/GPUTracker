@@ -3,10 +3,12 @@ version: '3'
 services:
   db:
     image: mysql/mysql-server:latest
-  scraper:
-    build: ./scraper
+    ports:
+      - '3306:3306'
     volumes:
       - db-volume:/var/lib/mysql
+  scraper:
+    build: ./scraper
 
 volumes:
   db-volume:
