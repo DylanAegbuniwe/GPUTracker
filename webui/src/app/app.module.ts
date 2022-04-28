@@ -4,16 +4,24 @@ import { HttpClientModule} from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DropBoxComponent } from './drop-box/drop-box.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { TestComponent } from './test/test.component';
+import { FormsModule } from '@angular/forms';
+
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    DropBoxComponent
+    DropBoxComponent,
+    TestComponent
   ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

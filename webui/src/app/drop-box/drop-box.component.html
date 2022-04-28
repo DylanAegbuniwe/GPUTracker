@@ -1,7 +1,9 @@
 <div  class='titleBox'>
-    <div>Web Scraper Pro
+    <div>GPUTracker
      </div>
-     <select ng-model="selectedName">
-        <option *ngFor="let gpu of gpus" [value]="gpu.price">{{gpu.gpuname}}</option>
+     <select [(ngModel)]="chosenGPU" change="selected()">
+        <option *ngFor="let gpu of gpus; let i = index" [ngValue]="gpu" >{{i}}{{gpu.gpuname}}</option>
+   
      </select>
-</div>
+     <div *ngIf = "chosenGPU?.price != null">{{this.dollarSign}}{{chosenGPU?.price}}</div>
+   </div>
