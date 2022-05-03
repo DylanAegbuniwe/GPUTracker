@@ -103,7 +103,7 @@ def connect_to_database():
 				user='scraper', 
 				password='scraper',
 				host='db',
-				database='gpus'
+				database='gputracker'
 			)
 		except:
 			num_fails += 1
@@ -115,11 +115,23 @@ def connect_to_database():
 			connected = True
 
 	# Safely end connection to mysql server
-	connection.close()
+	#connection.close()
+
+	# Return mysql connector object if successful
+	return connection
 # end connect_to_database()
 
 # Populate database on mysql server with product info for top 36 best selling gpus on newegg.com
 def write_to_database():
-	# Initialize new cursor to interact with database
+	# Establish connection to server
+	connection = connect_to_database()
+
+	# Initialize cursor to interact with database
 	cursor = connection.cursor()
+
+	# Create dictionary to more easily define tables
+	tables = {}
+
+	# Safely end connection to mysql server
+	connection.close()
 # end write_to_database()

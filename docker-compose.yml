@@ -8,7 +8,7 @@ services:
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: gpus
+      MYSQL_DATABASE: gputracker
       MYSQL_USER: scraper
       MYSQL_PASSWORD: scraper
     ports:
