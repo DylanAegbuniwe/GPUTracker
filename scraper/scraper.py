@@ -1,7 +1,7 @@
 # Author(s): 	Shaun Derstine
-# Last Edit: 	4/19/2022 
+# Date Created: 2/14/2022 
 # Description: 	This program contains function(s) for retreiving the item name, price,
-#		and as-of date of a product listed on newegg
+#		as-of date, and inventory status of a product listed on newegg
 
 import mysql.connector
 import sys
@@ -54,12 +54,12 @@ def get_product(url):
 	inventory_status = product_inventory.find(string='In stock.') == 'In stock.'
 
 	# return as dictionary
-	return { 'product_title':product_title, 'current_price':cur_price, 'last_update':cur_date, 'in_stock':inventory_status }
+	return { 'product_title':product_title, 'current_price':cur_price, 'last_updated':cur_date, 'in_stock':inventory_status }
 # end get_product()
 
 # Input:	None
 # Output:	Dictionary containing product details for top 36 best selling GPUs on Newegg
-# Format:	{ 'item':[''], 'price':[''], 'date':[''] }
+# Format:	{ 'item':[''], 'price':[''], 'date':[''], 'status':[''] }
 def get_best_selling_gpus():
 	# Convert webpage listing best selling GPUs into bs object
 	link_to_best_selling_page = 'https://www.newegg.com/Desktop-Graphics-Cards/SubCategory/ID-48?Tid=7709&Order=3'
@@ -84,7 +84,7 @@ def get_best_selling_gpus():
 		details = get_product(gpu['href'])
 		product_details['product_titles'].append(details['product_title'])
 		product_details['current_prices'].append(details['current_price'])
-		product_details['last_updates'].append(details['last_update'])
+		product_details['last_updates'].append(details['last_updated'])
 		product_details['items_in_stock'].append(details['in_stock'])
 
 	return product_details
