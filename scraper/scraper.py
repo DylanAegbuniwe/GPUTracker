@@ -116,6 +116,7 @@ def connect_to_database():
 			sleep(30)
 		else:
 			connected = True
+			print("Successfully connected to server.")
 
 	# Return mysql connector object if successful
 	return connection
@@ -134,17 +135,23 @@ def write_to_database():
 
 	# Define table for gpus
 	tables['gpu_table'] = (
-		"CREATE TABLE 'gpus' ("
-		"	'gpu_id' INT PRIMARY KEY AUTO_INCREMENT"
-		"	'product_title' TEXT"
-		"	'current_price' FLOAT"
-		"	'last_updated' DATE"
-		"	'in_stock' BOOLEAN"
+		"CREATE TABLE IF NOT EXISTS gpus ("
+		"	gpu_id INT PRIMARY KEY AUTO_INCREMENT,"
+		"	product_title TEXT,"
+		"	current_price FLOAT,"
+		"	last_updated DATE,"
+		"	in_stock BOOLEAN"
 		")"
 	)
 
 	# Initialize cursor to interact with database
 	cursor = connection.cursor()
+
+	# MODIFY DATABASE HERE
+	cursor.execute(tables['gpu_table'])
+
+	# Safely close cursor
+	cursor.close()
 
 	# Safely end connection to mysql server
 	connection.close()
