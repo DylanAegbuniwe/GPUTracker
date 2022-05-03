@@ -70,10 +70,10 @@ def get_best_selling_gpus():
 
 	# Dictionary to hold product details
 	product_details = {
-		'product_titles':[],
-		'current_prices':[],
-		'last_updates':[],
-		'items_in_stock':[]
+		'product_title':[],
+		'current_price':[],
+		'last_updated':[],
+		'in_stock':[]
 	}
 
 	# Get product details for each GPU
@@ -82,10 +82,10 @@ def get_best_selling_gpus():
 	# Maybe store gpu details in custom object gpu
 	for gpu in gpus:
 		details = get_product(gpu['href'])
-		product_details['product_titles'].append(details['product_title'])
-		product_details['current_prices'].append(details['current_price'])
-		product_details['last_updates'].append(details['last_updated'])
-		product_details['items_in_stock'].append(details['in_stock'])
+		product_details['product_title'].append(details['product_title'])
+		product_details['current_price'].append(details['current_price'])
+		product_details['last_updated'].append(details['last_updated'])
+		product_details['in_stock'].append(details['in_stock'])
 
 	return product_details
 # end get_best_selling_gpus()
@@ -148,7 +148,16 @@ def write_to_database():
 	cursor = connection.cursor()
 
 	# MODIFY DATABASE HERE
+	# Create table 'gpus'
 	cursor.execute(tables['gpu_table'])
+
+	# Add gpus to table
+	gpus = get_best_selling_gpus()
+	num_gpus = len(gpus['product_title'])
+
+	# Loop through each gpu and add details to database
+	for i in range(0, num_gpus):
+		print(i)
 
 	# Safely close cursor
 	cursor.close()
