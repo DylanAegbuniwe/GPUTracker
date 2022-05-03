@@ -88,8 +88,8 @@ def get_best_selling_gpus():
 	return product_details
 # end get_best_selling_gpus()
 
-# Create and populate new DATABASE on mySQL server with results from get_best_selling_gpus()
-def write_to_database():
+# Attempt to establish a connection to mysql server
+def connect_to_database():
 	# Local variables
 	num_fails = 0
 	connected = False
@@ -114,7 +114,12 @@ def write_to_database():
 		else:
 			connected = True
 
+	# Safely end connection to mysql server
+	connection.close()
+# end connect_to_database()
+
+# Populate database on mysql server with product info for top 36 best selling gpus on newegg.com
+def write_to_database():
 	# Initialize new cursor to interact with database
-	#cursor = connection.cursor()
-	
+	cursor = connection.cursor()
 # end write_to_database()
