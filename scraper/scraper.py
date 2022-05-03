@@ -4,9 +4,10 @@
 #		and as-of date of a product listed on newegg
 
 import mysql.connector
+import sys
+from time import sleep
 from bs4 import BeautifulSoup as bs
 from urllib.request import urlopen
-from sys import argv
 from datetime import date
 
 # Input:	url
@@ -89,21 +90,31 @@ def get_best_selling_gpus():
 
 # Create and populate new DATABASE on mySQL server with results from get_best_selling_gpus()
 def write_to_database():
-	# Create connection to mySQL server
-	connection = mysql.connector.connect(
-		# user and password (as well as host and port) are hardcoded for now,
-		# but will likely change in the future and require a more robust method
+	# Local variables
+	num_fails = 0
+	connected = False
 
-		# user must have privileges to create/modify databases on server
-		# this must be done on server side
-		user='py', 
-		password='password',
-		host='localhost', # default value
-		port=3306 # default value
-	)
+	# Attempt to connect to mysql database
+	# If unsuccessful on third attempt, script will exit
+	while not connected:
+		try:
+			# Create connection to mySQL server
+			connection = mysql.connector.connect(
+				user='scraper', 
+				password='scraper',
+				host='db',
+				database='gpus'
+			)
+		except:
+			num_fails += 1
+			if num_fails >= 3:
+				sys.exit("Unable to connect after three attempts")
+			print("Connection failed. Trying again in 30 seconds...")
+			sleep(30)
+		else:
+			connected = True
 
 	# Initialize new cursor to interact with database
-	cursor = connection.cursor()
-
+	#cursor = connection.cursor()
 	
 # end write_to_database()
