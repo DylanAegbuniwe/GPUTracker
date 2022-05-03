@@ -78,6 +78,8 @@ def get_best_selling_gpus():
 
 	# Get product details for each GPU
 	# Append values for each individual gpu to list of values in current dictionary
+
+	# Maybe store gpu details in custom object gpu
 	for gpu in gpus:
 		details = get_product(gpu['href'])
 		product_details['product_titles'].append(details['product_title'])
@@ -89,6 +91,7 @@ def get_best_selling_gpus():
 # end get_best_selling_gpus()
 
 # Attempt to establish a connection to mysql server
+# Note: Avoid calling without including safe closure of connection
 def connect_to_database():
 	# Local variables
 	num_fails = 0
@@ -114,11 +117,11 @@ def connect_to_database():
 		else:
 			connected = True
 
-	# Safely end connection to mysql server
-	#connection.close()
-
 	# Return mysql connector object if successful
 	return connection
+
+	# Safely end connection to mysql server
+	#connection.close()
 # end connect_to_database()
 
 # Populate database on mysql server with product info for top 36 best selling gpus on newegg.com
@@ -126,11 +129,22 @@ def write_to_database():
 	# Establish connection to server
 	connection = connect_to_database()
 
-	# Initialize cursor to interact with database
-	cursor = connection.cursor()
-
 	# Create dictionary to more easily define tables
 	tables = {}
+
+	# Define table for gpus
+	tables['gpu_table'] = (
+		"CREATE TABLE 'gpus' ("
+		"	'gpu_id' INT PRIMARY KEY AUTO_INCREMENT"
+		"	'product_title' TEXT"
+		"	'current_price' FLOAT"
+		"	'last_updated' DATE"
+		"	'in_stock' BOOLEAN"
+		")"
+	)
+
+	# Initialize cursor to interact with database
+	cursor = connection.cursor()
 
 	# Safely end connection to mysql server
 	connection.close()
