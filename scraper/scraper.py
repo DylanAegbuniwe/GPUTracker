@@ -138,7 +138,7 @@ def write_to_database():
 		"CREATE TABLE IF NOT EXISTS gpus ("
 		"	gpu_id INT PRIMARY KEY AUTO_INCREMENT,"
 		"	product_title VARCHAR(255),"
-		"	current_price VARCHAR(255),"
+		"	current_price DECIMAL(8,2),"
 		"	last_updated VARCHAR(255),"
 		"	in_stock VARCHAR(255)"
 		")"
@@ -157,7 +157,7 @@ def write_to_database():
 	# Create table 'gpus'
 	cursor.execute(tables['gpu_table'])
 
-	# Add gpus to table
+	# Add gpu details to table 'gpus'
 	gpus = get_best_selling_gpus()
 	num_gpus = len(gpus['product_title'])
 
@@ -165,10 +165,12 @@ def write_to_database():
 	for i in range(0, num_gpus):
 		gpu_details = (
 			str(gpus['product_title'][i]),
-			gpus['current_price'][i],
+			# Set price to 0 if no price data is found
+			0 if gpus['current_price'][i] == '' else gpus['current_price'][i][1:].replace(',',''),
 			gpus['last_updated'][i],
 			gpus['in_stock'][i]
 		)
+		# Combine generic insert values statement with specific gpu details and write to database
 		cursor.execute(add_gpu, gpu_details)
 
 	# Commit changes to server
