@@ -139,8 +139,8 @@ def write_to_database():
 		"	gpu_id INT PRIMARY KEY AUTO_INCREMENT,"
 		"	product_title VARCHAR(255),"
 		"	current_price DECIMAL(8,2),"
-		"	last_updated VARCHAR(255),"
-		"	in_stock VARCHAR(255)"
+		"	last_updated DATE,"
+		"	in_stock BOOLEAN"
 		")"
 	)
 
