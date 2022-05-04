@@ -133,16 +133,22 @@ def write_to_database():
 	# Create dictionary to more easily define tables
 	tables = {}
 
-	# Define table for gpus
+	# Create string to define table
 	tables['gpu_table'] = (
 		"CREATE TABLE IF NOT EXISTS gpus ("
 		"	gpu_id INT PRIMARY KEY AUTO_INCREMENT,"
-		"	product_title TEXT,"
-		"	current_price FLOAT,"
-		"	last_updated DATE,"
-		"	in_stock BOOLEAN"
+		"	product_title VARCHAR(255),"
+		"	current_price VARCHAR(255),"
+		"	last_updated VARCHAR(255),"
+		"	in_stock VARCHAR(255)"
 		")"
 	)
+
+	# Create string to add gpu to table
+	add_gpu = ( "INSERT INTO gpus "
+		    "(product_title, current_price, last_updated, in_stock) "
+		    "VALUES (%s, %s, %s, %s)" )
+	
 
 	# Initialize cursor to interact with database
 	cursor = connection.cursor()
@@ -157,7 +163,16 @@ def write_to_database():
 
 	# Loop through each gpu and add details to database
 	for i in range(0, num_gpus):
-		print(i)
+		gpu_details = (
+			str(gpus['product_title'][i]),
+			gpus['current_price'][i],
+			gpus['last_updated'][i],
+			gpus['in_stock'][i]
+		)
+		cursor.execute(add_gpu, gpu_details)
+
+	# Commit changes to server
+	connection.commit()
 
 	# Safely close cursor
 	cursor.close()
