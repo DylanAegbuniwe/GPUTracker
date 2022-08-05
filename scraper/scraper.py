@@ -1,5 +1,5 @@
-# Author(s): 	Shaun Derstine
-# Date Created: 2/14/2022 
+# Author(s): 	Dylan Aegbuniwe, Shaun Derstine
+# Date Created: 2/14/2022 (Forked)
 # Description: 	This program contains function(s) for retreiving the item name, price,
 #		as-of date, and inventory status of a product listed on newegg
 
