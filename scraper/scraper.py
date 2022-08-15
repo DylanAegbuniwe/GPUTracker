@@ -103,9 +103,9 @@ def connect_to_database():
 		try:
 			# Create connection to mySQL server
 			connection = mysql.connector.connect(
-				user='scraper', 
-				password='scraper',
-				host='db',
+				user='root', 
+				password='password',
+				host='127.0.0.1',
 				database='gputracker'
 			)
 		except:
