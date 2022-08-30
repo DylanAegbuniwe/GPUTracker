@@ -13,6 +13,6 @@ Diagram of database can be found [here](https://drawsql.app/csc468/diagrams/csc4
 - Prices of tracked products
 - User login details
 
-### WebUI (JavaScript/CSS/HTML)
+### WebUI (JavaScript/CSS/HTML/PHP)
 - Home page that user can log in to or create a new account
 - User page where they can see their tracked products or track new ones
